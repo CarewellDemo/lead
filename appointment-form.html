@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Healthcare Appointment Booking | CareWell Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #0d7c66;
+            --primary-dark: #0a5f4e;
+            --secondary: #2c7da0;
+            --soft-bg: #f0f9ff;
+            --green-soft: #e6f7f2;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+            background: #0a5f4e;
+        }
+
+        /* Page BG — soft bokeh hospital photo */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background:
+                linear-gradient(140deg, rgba(10,95,78,0.93) 0%, rgba(44,125,160,0.88) 100%),
+                url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1800&q=80')
+                center/cover no-repeat;
+            z-index: 0;
+        }
+
+        /* Floating blobs */
+        .blob1, .blob2 {
+            position: fixed; border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            z-index: 0; pointer-events: none;
+        }
+        .blob1 { width: 420px; height: 420px; top: -120px; right: -100px; }
+        .blob2 { width: 300px; height: 300px; bottom: -80px; left: -80px; }
+
+        /* ── Outer card ── */
+        .wrapper {
+            position: relative; z-index: 1;
+            max-width: 980px; width: 100%;
+            background: white;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 40px 80px -15px rgba(0,0,0,0.55);
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+        }
+
+        /* ────────────────────────────
+           LEFT PANEL — Image + info
+        ──────────────────────────── */
+        .panel-image {
+            position: relative;
+            overflow: hidden;
+            min-height: 560px;
+        }
+        .panel-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* Dark gradient over image */
+        .panel-image::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(175deg,
+                rgba(13,124,102,0.15) 0%,
+                rgba(10,50,40,0.75) 100%);
+        }
+        /* Content over image */
+        .panel-overlay {
+            position: absolute; inset: 0;
+            z-index: 2;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+        .brand-logo {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(6px);
+            border-radius: 2rem;
+            padding: 0.5rem 1rem 0.5rem 0.6rem;
+            width: fit-content;
+        }
+        .brand-logo .logo-icon {
+            background: white;
+            color: var(--primary);
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+        .brand-logo span {
+            color: white; font-weight: 800; font-size: 0.9rem;
+        }
+
+        .panel-bottom { color: white; }
+        .panel-bottom h2 {
+            font-size: 1.7rem; font-weight: 800; line-height: 1.25;
+            margin-bottom: 0.6rem;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        .panel-bottom p {
+            font-size: 0.8rem; opacity: 0.88; line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+        .trust-badges {
+            display: flex; flex-direction: column; gap: 0.55rem;
+        }
+        .trust-badge {
+            display: flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.13);
+            backdrop-filter: blur(4px);
+            border-radius: 0.6rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.72rem; color: white; font-weight: 600;
+        }
+        .trust-badge i { color: #7dffd3; font-size: 0.85rem; }
+
+        /* ────────────────────────────
+           RIGHT PANEL — Form
+        ──────────────────────────── */
+        .panel-form {
+            display: flex; flex-direction: column;
+        }
+
+        .form-header {
+            background: linear-gradient(105deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 1.6rem 2rem 1.4rem;
+            color: white; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .form-header::before {
+            content: '';
+            position: absolute;
+            width: 180px; height: 180px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 50%; top: -70px; right: -50px;
+        }
+        .form-header h3 {
+            font-size: 1.25rem; font-weight: 800;
+            position: relative; z-index: 1;
+            margin-bottom: 0.2rem;
+        }
+        .form-header p {
+            font-size: 0.75rem; opacity: 0.88;
+            position: relative; z-index: 1;
+        }
+        .secure-pill {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 2rem; padding: 0.25rem 0.8rem;
+            font-size: 0.65rem; font-weight: 600;
+            margin-top: 0.55rem;
+            position: relative; z-index: 1;
+        }
+
+        .form-body { padding: 1.6rem 2rem; flex: 1; }
+
+        .section-label {
+            font-size: 0.63rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.09em;
+            color: #94a3b8; margin-bottom: 0.9rem;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .section-label::after {
+            content: ''; flex: 1; height: 1px; background: #e2ede8;
+        }
+
+        .input-group { margin-bottom: 1rem; display: flex; flex-direction: column; }
+        .input-group label {
+            font-size: 0.74rem; font-weight: 700;
+            color: var(--primary); margin-bottom: 0.35rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .input-group input,
+        .input-group select {
+            padding: 0.78rem 1rem;
+            border: 1.5px solid #e2ede8;
+            border-radius: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.86rem; transition: 0.2s;
+            background: white; color: #1e3a5f;
+        }
+        .input-group input::placeholder { color: #b0bec5; }
+        .input-group select { cursor: pointer; }
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13,124,102,0.12);
+            background: #fafffe;
+        }
+
+        .row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+        .required { color: #e5484d; font-size: 0.65rem; }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(105deg, var(--primary), var(--secondary));
+            border: none; padding: 0.95rem;
+            border-radius: 3rem;
+            font-weight: 800; font-size: 0.95rem;
+            color: white; cursor: pointer; margin-top: 0.6rem;
+            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(13,124,102,0.35);
+        }
+        .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        .status-message {
+            margin-top: 0.8rem; padding: 0.75rem 1rem;
+            border-radius: 0.85rem; font-size: 0.8rem;
+            display: none; align-items: center; gap: 8px;
+        }
+        .status-success { background: #d1fae5; color: #065f46; border-left: 4px solid #059669; }
+        .status-error   { background: #fee2e2; color: #991b1b; border-left: 4px solid #dc2626; }
+        .status-loading { background: #e0f2fe; color: #075985; border-left: 4px solid #0284c7; }
+
+        .form-footer {
+            background: var(--green-soft); border-top: 1px solid #cde3da;
+            padding: 0.7rem 2rem; font-size: 0.65rem; color: #5a6e66;
+            display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 760px) {
+            .wrapper { grid-template-columns: 1fr; }
+            .panel-image { min-height: 220px; }
+            .panel-overlay { padding: 1.2rem; }
+            .panel-bottom h2 { font-size: 1.3rem; }
+            .trust-badges { flex-direction: row; flex-wrap: wrap; }
+            .form-body { padding: 1.4rem; }
+            .row-2col { grid-template-columns: 1fr; gap: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blob1"></div>
+<div class="blob2"></div>
+
+<div class="wrapper">
+
+    <!-- ── LEFT: Image Panel ── -->
+    <div class="panel-image">
+        <img
+            src="https://images.unsplash.com/photo-1666214280391-8ff5bd3c0bf0?auto=format&fit=crop&w=800&q=85"
+            alt="Doctor ready to help"
+            onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80'"
+        >
+        <div class="panel-overlay">
+            <!-- Brand top -->
+            <div class="brand-logo">
+                <div class="logo-icon"><i class="fas fa-hospital-user"></i></div>
+                <span>CareWell Hospital</span>
+            </div>
+
+            <!-- Info bottom -->
+            <div class="panel-bottom">
+                <h2>Your Health,<br>Our Priority</h2>
+                <p>Expert care, same-day appointments,<br>and compassionate support — always.</p>
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <i class="fas fa-user-md"></i> 30+ Specialist Doctors
+                    </div>
+                    <div class="trust-badge">
+                        <i class="fas fa-shield-alt"></i> NABH Accredited
+                    </div>
+                    <div class="trust-badge">
+                        <i class="fas fa-clock"></i> 24 / 7 Emergency Care
+                    </div>
+                    <div class="trust-badge">
+                        <i class="fas fa-star"></i> 50,000+ Happy Patients
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── RIGHT: Form Panel ── -->
+    <div class="panel-form">
+
+        <div class="form-header">
+            <h3><i class="fas fa-calendar-check"></i> &nbsp;Book an Appointment</h3>
+            <p>Health Checkup · Wellness · Specialist Consultation</p>
+            <div class="secure-pill">
+                <i class="fas fa-lock"></i> Secure &amp; Confidential
+            </div>
+        </div>
+
+        <div class="form-body">
+            <form id="appointmentForm">
+
+                <div class="section-label">Personal Details</div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" placeholder="e.g. Priya Sharma" required>
+                </div>
+
+                <div class="row-2col">
+                    <div class="input-group">
+                        <label><i class="fas fa-envelope"></i> Email ID <span class="required">*</span></label>
+                        <input type="email" id="emailId" placeholder="patient@example.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fas fa-phone-alt"></i> Mobile <span class="required">*</span></label>
+                        <input type="tel" id="mobileNo" placeholder="9876543210" required>
+                    </div>
+                </div>
+
+                <div class="row-2col">
+                    <div class="input-group">
+                        <label><i class="fas fa-venus-mars"></i> Gender <span class="required">*</span></label>
+                        <select id="gender" required>
+                            <option value="">Select</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fas fa-birthday-cake"></i> Age <span class="required">*</span></label>
+                        <input type="number" id="age" placeholder="e.g. 35" min="0" max="120" required>
+                    </div>
+                </div>
+
+                <div class="section-label">Appointment Details</div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-map-marker-alt"></i> City <span class="required">*</span></label>
+                    <select id="city" required>
+                        <option value="">-- Select Your City --</option>
+                        <option>Chennai</option>
+                        <option>Mumbai</option>
+                        <option>Kolkata</option>
+                        <option>Bangalore</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-notes-medical"></i> Interested In <span class="required">*</span></label>
+                    <select id="interestedIn" required>
+                        <option value="">-- Select Service --</option>
+                        <option>Wellness Program</option>
+                        <option>Preventive Health Checkup</option>
+                        <option>Specialist Consultation</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Confirm Appointment
+                </button>
+                <div id="formStatus" class="status-message"></div>
+
+            </form>
+        </div>
+
+        <div class="form-footer">
+            <span><i class="fas fa-clock"></i> Mon–Sat: 9am–8pm</span>
+            <span><i class="fas fa-shield-alt"></i> Data Protected</span>
+            <span><i class="fas fa-ambulance"></i> Emergency: 24/7</span>
+        </div>
+
+    </div><!-- /panel-form -->
+</div><!-- /wrapper -->
+
+<script>
+    // ============================================
+    // ⚡ EASY CUSTOMIZATION
+    // ============================================
+    const CLINIC_NAME   = "CareWell Hospital";
+    const API_BASE_URL  = "https://formapiv5.resul.io/Subscription/IndexInsertAPI";
+    const FORM_ID       = "3127";
+    const DB_ID         = "53efc8a6_3a68_4e05_a818_bdd2d932b164";
+    const NOTIFY_STATUS = "false";
+    const FORM_STYLES   = "healthcare_appointment_form";
+    // ============================================
+
+    const form      = document.getElementById("appointmentForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const statusDiv = document.getElementById("formStatus");
+
+    function generateId(prefix) {
+        return prefix + '_' + Date.now() + '_' + Math.random().toString(36).substring(2, 10);
+    }
+
+    function showMessage(type, text) {
+        const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', loading: 'fa-spinner fa-pulse' };
+        statusDiv.style.display = "flex";
+        statusDiv.innerHTML = `<i class="fas ${icons[type]}"></i> <span>${text}</span>`;
+        statusDiv.className = `status-message status-${type}`;
+        if (type !== 'loading') {
+            setTimeout(() => { statusDiv.style.display = 'none'; }, 6000);
+        }
+    }
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const Name         = document.getElementById("fullName").value.trim();
+        const EmailID      = document.getElementById("emailId").value.trim();
+        const MobileNo     = document.getElementById("mobileNo").value.trim();
+        const Gender       = document.getElementById("gender").value;
+        const Age          = document.getElementById("age").value;
+        const City         = document.getElementById("city").value;
+        const InterestedIn = document.getElementById("interestedIn").value;
+
+        if (!Name)         { showMessage("error", "Please enter patient's full name"); return; }
+        if (!EmailID || !/^\S+@\S+\.\S+$/.test(EmailID)) { showMessage("error", "Valid email address required"); return; }
+        if (!MobileNo || !/^\d{7,15}$/.test(MobileNo.replace(/\s/g,''))) { showMessage("error", "Valid mobile number required"); return; }
+        if (!Gender)       { showMessage("error", "Please select gender"); return; }
+        if (!Age || Age < 0 || Age > 120) { showMessage("error", "Please enter valid age"); return; }
+        if (!City)         { showMessage("error", "Please select your city"); return; }
+        if (!InterestedIn) { showMessage("error", "Please select a service"); return; }
+
+        const params = new URLSearchParams();
+        params.append('Name',            Name);
+        params.append('EmailID',         EmailID);
+        params.append('MobileNo',        MobileNo);
+        params.append('Gender',          Gender);
+        params.append('Age',             Age);
+        params.append('City',            City);
+        params.append('Interested In',   InterestedIn);
+        params.append('FormStyles',      FORM_STYLES);
+        params.append('formId',          FORM_ID);
+        params.append('dbId',            DB_ID);
+        params.append('SourceURL',       window.location.href);
+        params.append('pagereferrerurl', document.referrer || "direct");
+        params.append('rid',             generateId("rid"));
+        params.append('cid',             generateId("cid"));
+        params.append('pagetitle',       document.title);
+        params.append('notifyStatus',    NOTIFY_STATUS);
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Booking...';
+        showMessage("loading", "Submitting your appointment request...");
+
+        try {
+            const response = await fetch(`${API_BASE_URL}?${params.toString()}`, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json' }
+            });
+
+            let data;
+            const ct = response.headers.get('content-type');
+            if (ct && ct.includes('application/json')) {
+                data = await response.json();
+            } else {
+                const raw = await response.text();
+                try { data = JSON.parse(raw); } catch(e) { data = { result: false }; }
+            }
+
+            if (response.ok && (data.result === true || data.statusId === 200)) {
+                showMessage("success", "✅ Appointment request submitted! Our team will contact you within 2 hours.");
+                form.reset();
+            } else {
+                showMessage("error", `⚠️ ${data.message || "Unable to submit. Please try again."}`);
+            }
+        } catch (err) {
+            console.error("API error:", err);
+            showMessage("error", "Network issue. Please check your connection and try again.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Confirm Appointment';
+        }
+    });
+</script>
+</body>
+</html>
