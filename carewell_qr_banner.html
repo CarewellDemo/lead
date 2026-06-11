@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>CareWell Hospital | Healthcare QR Banner - Book Appointment & Health Camp</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            padding: 2rem;
+        }
+
+        :root {
+            --health-primary: #0d7c66;
+            --health-primary-dark: #0a5f4e;
+            --health-secondary: #2c7da0;
+            --health-soft-bg: #f0f9ff;
+        }
+
+        .health-qr-banner {
+            max-width: 1100px;
+            width: 100%;
+            background: white;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.35);
+            transition: transform 0.2s ease;
+        }
+
+        /* Header Section */
+        .banner-header {
+            background: linear-gradient(105deg, #0d7c66 0%, #2c7da0 100%);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+        .brand-icon {
+            background: rgba(255,255,255,0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+        .brand-text h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+        .brand-text p {
+            font-size: 0.7rem;
+            opacity: 0.9;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .header-contact {
+            color: rgba(255,255,255,0.95);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 500;
+        }
+        .header-badge {
+            background: #e0f2fe;
+            color: #0d7c66;
+            padding: 0.4rem 1.2rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* Main Content - Three Columns */
+        .banner-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 0.85fr;
+        }
+
+        /* LEFT COLUMN - Services & Info */
+        .offer-section {
+            padding: 2rem;
+            border-right: 1px solid #e8f5f0;
+        }
+        .offer-section h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #0d7c66;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+        .tagline {
+            color: #2c7da0;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            font-size: 0.85rem;
+        }
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        .service-card {
+            background: #f0f9ff;
+            padding: 0.85rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid #dbeef8;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(13,124,102,0.12);
+            border-color: #0d7c66;
+        }
+        .service-card i {
+            font-size: 1.5rem;
+            color: #0d7c66;
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+        .service-card h4 {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #1e3a5f;
+        }
+        .service-card p {
+            font-size: 0.68rem;
+            color: #5e6f8d;
+        }
+        .camp-badge {
+            background: linear-gradient(110deg, #e6f7f2, #f0fbf7);
+            border-left: 4px solid #0d7c66;
+            padding: 0.85rem;
+            border-radius: 0 0.8rem 0.8rem 0;
+            margin: 0.7rem 0;
+            font-size: 0.82rem;
+        }
+        .stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #c8e6de;
+        }
+        .stat {
+            text-align: center;
+            flex: 1;
+        }
+        .stat-number {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #0d7c66;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.63rem;
+            color: #7a8fa0;
+            margin-top: 2px;
+        }
+
+        /* MIDDLE COLUMN - Image Section */
+        .image-section {
+            background: linear-gradient(180deg, #daf0ea 0%, #c8e8f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 480px;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .doctor-image {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            object-fit: cover;
+        }
+        .doctor-image:hover {
+            transform: scale(1.02);
+        }
+        .floating-badge {
+            position: absolute;
+            background: white;
+            border-radius: 0.8rem;
+            padding: 0.45rem 0.75rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.13);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            z-index: 10;
+            white-space: nowrap;
+        }
+        .badge-top {
+            top: 18px;
+            left: 12px;
+            color: #0d7c66;
+        }
+        .badge-mid {
+            top: 48%;
+            right: 10px;
+            color: #b45309;
+        }
+        .badge-bot {
+            bottom: 16px;
+            right: 10px;
+            color: #2c7da0;
+        }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #0d7c66;
+            animation: pulse 1.8s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.45; transform: scale(1.35); }
+        }
+
+        /* RIGHT COLUMN - QR Code */
+        .qr-section {
+            background: #f0f9ff;
+            padding: 1.8rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-left: 1px solid #ddeef8;
+        }
+        .qr-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0d7c66;
+            margin-bottom: 0.3rem;
+        }
+        .qr-subtitle {
+            font-size: 0.72rem;
+            color: #4a6a85;
+            margin-bottom: 0.8rem;
+        }
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            margin: 0.6rem 0;
+        }
+        .qr-steps {
+            text-align: left;
+            margin: 0.6rem 0;
+            width: 100%;
+        }
+        .qr-step {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-size: 0.7rem;
+            color: #4a6a85;
+            margin: 0.35rem 0;
+        }
+        .step-num {
+            background: #0d7c66;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .cta-link {
+            display: block;
+            background: #0d7c66;
+            color: white;
+            text-decoration: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 3rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-top: 0.8rem;
+            transition: 0.2s;
+            text-align: center;
+        }
+        .cta-link:hover {
+            background: #0a5f4e;
+            transform: translateY(-2px);
+        }
+        .secure-note {
+            margin-top: 0.6rem;
+            font-size: 0.62rem;
+            color: #4a6a85;
+        }
+
+        /* Footer Section */
+        .banner-footer {
+            background: linear-gradient(90deg, #0d7c66 0%, #2c7da0 100%);
+            padding: 0.7rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.92);
+            gap: 0.5rem;
+        }
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 950px) {
+            .banner-content {
+                grid-template-columns: 1fr;
+            }
+            .image-section {
+                min-height: 350px;
+            }
+            .offer-section {
+                border-right: none;
+                border-bottom: 1px solid #e8f5f0;
+            }
+            .qr-section {
+                border-left: none;
+                border-top: 1px solid #ddeef8;
+            }
+            .offer-section h1 {
+                font-size: 1.5rem;
+            }
+            .banner-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .floating-badge {
+                white-space: normal;
+                font-size: 0.6rem;
+                padding: 0.35rem 0.6rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            body {
+                padding: 1rem;
+            }
+            .stats {
+                flex-wrap: wrap;
+            }
+            .stat {
+                min-width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="health-qr-banner">
+
+    <!-- HEADER SECTION -->
+    <div class="banner-header">
+        <div class="brand">
+            <div class="brand-icon"><i class="fas fa-hospital-user"></i></div>
+            <div class="brand-text">
+                <h2 id="clinicName">CareWell Hospital</h2>
+                <p>Your wellness, our priority</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-contact">
+                <i class="fas fa-phone-alt"></i> 1800-123-4567
+            </div>
+            <div class="header-badge">
+                <i class="fas fa-qrcode"></i> Scan & Book Instantly
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT - THREE COLUMNS -->
+    <div class="banner-content">
+
+        <!-- LEFT COLUMN: Services & Healthcare Info -->
+        <div class="offer-section">
+            <h1>Quality Care<br>at Your Fingertips</h1>
+            <div class="tagline">
+                <i class="fas fa-calendar-check"></i> Same-day appointments &nbsp;|&nbsp; NABH Accredited
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <i class="fas fa-stethoscope"></i>
+                    <h4>General Medicine</h4>
+                    <p>Expert consultation</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h4>Cardiology</h4>
+                    <p>Heart health checkups</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-baby-carriage"></i>
+                    <h4>Pediatrics</h4>
+                    <p>Child specialists</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-x-ray"></i>
+                    <h4>Diagnostics</h4>
+                    <p>Lab tests & scans</p>
+                </div>
+            </div>
+            <div class="camp-badge">
+                <i class="fas fa-campground" style="color:#0d7c66"></i>
+                <strong>FREE Health Camp – 15th June 2025</strong><br>
+                BP, sugar, BMI checkup &nbsp;|&nbsp; Register via QR
+            </div>
+            <div class="camp-badge">
+                <i class="fas fa-syringe" style="color:#0d7c66"></i>
+                <strong>Vaccination Drive</strong> – Flu & COVID boosters available
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Happy Patients</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Expert Doctors</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Emergency</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Specialties</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MIDDLE COLUMN: Professional Healthcare Image -->
+        <div class="image-section">
+            <div class="image-container">
+                <!-- Floating badges for engagement -->
+                <div class="floating-badge badge-top">
+                    <div class="pulse-dot"></div> Doctors Online Now
+                </div>
+                <div class="floating-badge badge-mid">
+                    <i class="fas fa-star" style="color:#f59e0b; font-size:0.7rem"></i> 4.9 Rating (2.3k reviews)
+                </div>
+                <div class="floating-badge badge-bot">
+                    <i class="fas fa-clock" style="color:#2c7da0; font-size:0.7rem"></i> ~10 min wait time
+                </div>
+
+                <!-- Professional Doctor Image -->
+                <!-- Replace the src URL with your own doctor/hospital image -->
+                <img class="doctor-image" 
+                     src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=500&fit=crop" 
+                     alt="Professional Doctor at CareWell Hospital"
+                     onerror="this.src='https://placehold.co/400x500/0d7c66/white?text=CareWell+Doctor'">
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: QR Code for Instant Booking -->
+        <div class="qr-section">
+            <div class="qr-title">
+                <i class="fas fa-qrcode"></i> Scan to Book
+            </div>
+            <div class="qr-subtitle">
+                Appointment • Health Camp • Vaccination
+            </div>
+            <div id="qrcode"></div>
+            <div class="qr-steps">
+                <div class="qr-step">
+                    <div class="step-num">1</div> Open your camera app
+                </div>
+                <div class="qr-step">
+                    <div class="step-num">2</div> Point at the QR code
+                </div>
+                <div class="qr-step">
+                    <div class="step-num">3</div> Tap the link & book instantly
+                </div>
+            </div>
+            <a href="#" id="fallbackLink" class="cta-link" target="_blank">
+                <i class="fas fa-mobile-alt"></i>&nbsp; Or Click to Book
+            </a>
+            <div class="secure-note">
+                <i class="fas fa-lock"></i> Secure &nbsp;|&nbsp; Instant Confirmation &nbsp;|&nbsp; Free Registration
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <div class="banner-footer">
+        <div class="footer-item"><i class="fas fa-clock"></i> Mon–Sat: 9am – 8pm</div>
+        <div class="footer-item"><i class="fas fa-ambulance"></i> Emergency: 24/7</div>
+        <div class="footer-item"><i class="fas fa-shield-alt"></i> ISO & NABH Certified</div>
+        <div class="footer-item"><i class="fas fa-map-marker-alt"></i> 12, Health Avenue, Chennai</div>
+    </div>
+</div>
+
+<script>
+    // ============================================
+    // ⚡ EASY CUSTOMIZATION - CHANGE THESE VALUES ⚡
+    // ============================================
+
+    // 1️⃣ CHANGE YOUR HOSPITAL/CLINIC NAME HERE
+    const CLINIC_NAME = "CareWell Hospital";  // <-- CHANGE THIS
+    
+    // 2️⃣ CHANGE THE QR CODE DESTINATION URL (your appointment form page)
+    const QR_TARGET_URL = "https://re.cx/2RT7u2";  // <-- CHANGE THIS TO YOUR FORM URL
+    
+    // 3️⃣ (Optional) Change doctor image URL - replace with your own image
+    // The image is already set to a professional doctor image from Unsplash
+    // To use your own image, change the src attribute in the img tag above
+    
+    // ============================================
+    // DO NOT EDIT BELOW THIS LINE
+    // ============================================
+    
+    // Apply clinic name to header
+    document.getElementById("clinicName").innerText = CLINIC_NAME;
+    
+    // Generate QR Code
+    const qrContainer = document.getElementById("qrcode");
+    qrContainer.innerHTML = "";
+    
+    new QRCode(qrContainer, {
+        text: QR_TARGET_URL,
+        width: 148,
+        height: 148,
+        colorDark: "#0d7c66",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+    
+    // Update fallback link
+    document.getElementById("fallbackLink").href = QR_TARGET_URL;
+    
+    console.log("Healthcare QR Banner Ready - Clinic:", CLINIC_NAME, "| QR points to:", QR_TARGET_URL);
+</script>
+</body>
+</html>
