@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareWell Hospital – Compassionate Care, Advanced Medicine</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS
+───────────────────────────────────────────── */
+:root{
+  --blue:#0d7c66;
+  --blue-dark:#0a5f4e;
+  --blue-light:#e6f7f2;
+  --cyan:#2c7da0;
+  --cyan-light:#ddf0fb;
+  --navy:#0a3d2e;
+  --white:#ffffff;
+  --off:#f0faf7;
+  --gray:#64748b;
+  --gray-light:#d8ede8;
+  --text:#0f2318;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 8px 32px rgba(13,124,102,.10);
+  --shadow-lg:0 20px 60px rgba(13,124,102,.16);
+  --font-body:'Plus Jakarta Sans',sans-serif;
+  --font-display:'Playfair Display',serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--text);background:var(--white);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{cursor:pointer;font-family:var(--font-body)}
+/* ─────────────────────────────────────────────
+   UTILITIES
+───────────────────────────────────────────── */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.section{padding:80px 0}
+.section-sm{padding:56px 0}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);background:var(--blue-light);padding:5px 14px;border-radius:999px;margin-bottom:16px}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:12px}
+.section-sub{font-size:1rem;color:var(--gray);line-height:1.7;max-width:560px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;font-weight:700;font-size:.88rem;border:none;transition:all .2s}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 12px 28px rgba(13,124,102,.3)}
+.btn-outline{background:transparent;color:var(--blue);border:2px solid var(--blue)}
+.btn-outline:hover{background:var(--blue);color:#fff;transform:translateY(-2px)}
+.btn-white{background:#fff;color:var(--blue)}
+.btn-white:hover{background:var(--blue-light)}
+.btn-cyan{background:var(--cyan);color:#fff}
+.btn-cyan:hover{background:#245e80}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:999px}
+.badge-blue{background:var(--blue-light);color:var(--blue)}
+.badge-cyan{background:var(--cyan-light);color:#0077a8}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.flex-center{display:flex;align-items:center;justify-content:center}
+.text-center{text-align:center}
+.text-center .section-sub{margin:0 auto}
+.hidden{display:none!important}
+/* ─────────────────────────────────────────────
+   TOP BAR
+───────────────────────────────────────────── */
+.topbar{background:var(--navy);color:#fff;font-size:.74rem;padding:8px 0}
+.topbar .inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.topbar .left,.topbar .right{display:flex;align-items:center;gap:16px}
+.topbar i{color:var(--cyan);margin-right:4px}
+/* ─────────────────────────────────────────────
+   NAVBAR
+───────────────────────────────────────────── */
+.navbar{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.navbar .inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1200px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem}
+.logo-text{font-weight:800;font-size:1.1rem;color:var(--navy)}
+.logo-text span{color:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{padding:8px 14px;border-radius:8px;font-size:.85rem;font-weight:600;color:var(--gray);transition:all .15s;background:none;border:none}
+.nav-link:hover,.nav-link.active{color:var(--blue);background:var(--blue-light)}
+.nav-cta{margin-left:8px}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--navy);border-radius:2px;transition:.2s}
+.mobile-nav{display:none;flex-direction:column;padding:8px 24px 16px;border-top:1px solid var(--gray-light)}
+.mobile-nav .nav-link{padding:10px 0;border-radius:0;border-bottom:1px solid var(--gray-light)}
+/* ─────────────────────────────────────────────
+   PAGE ROUTING
+───────────────────────────────────────────── */
+.page{display:none}
+.page.active{display:block}
+/* ─────────────────────────────────────────────
+   HERO
+───────────────────────────────────────────── */
+.hero{background:linear-gradient(140deg,#0a3d2e 0%,#0d7c66 55%,#2c7da0 100%);min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-blob{position:absolute;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+.hero-blob-1{width:500px;height:500px;top:-150px;right:-100px}
+.hero-blob-2{width:300px;height:300px;bottom:-80px;left:10%}
+.hero .container{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 24px}
+.hero-content{color:#fff}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);padding:7px 16px;border-radius:999px;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
+.hero-tag i{color:#7dffd3}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:800;line-height:1.1;margin-bottom:20px}
+.hero h1 em{font-style:normal;color:#7dffd3}
+.hero-desc{font-size:1.05rem;opacity:.88;line-height:1.7;margin-bottom:32px;max-width:480px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:28px;margin-top:40px;flex-wrap:wrap}
+.hero-stat strong{display:block;font-size:1.7rem;font-weight:800;color:#7dffd3}
+.hero-stat span{font-size:.78rem;opacity:.75;font-weight:500}
+.hero-stat-divider{width:1px;background:rgba(255,255,255,.2)}
+.hero-visual{position:relative}
+.hero-card-main{background:rgba(255,255,255,.12);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:20px;overflow:hidden}
+.hero-card-main img{width:100%;height:360px;object-fit:cover;object-position:top}
+.hero-float{position:absolute;background:#fff;border-radius:var(--radius);padding:14px 18px;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+.hero-float-1{bottom:-10px;left:-20px}
+.hero-float-2{top:20px;right:-20px}
+.hero-float .float-icon{width:36px;height:36px;border-radius:8px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.hero-float strong{font-size:.85rem;font-weight:700;color:var(--navy)}
+.hero-float span{font-size:.7rem;color:var(--gray)}
+.emergency-strip{background:linear-gradient(90deg,#cc0000,#ff2222);color:#fff;text-align:center;padding:12px 24px;font-weight:700;font-size:.88rem;letter-spacing:.02em}
+.emergency-strip i{margin-right:8px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+/* ─────────────────────────────────────────────
+   STATS BANNER
+───────────────────────────────────────────── */
+.stats-banner{background:var(--blue);padding:48px 0;color:#fff}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat-item{text-align:center;padding:20px;border-right:1px solid rgba(255,255,255,.15)}
+.stat-item:last-child{border-right:none}
+.stat-item .num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;line-height:1;margin-bottom:6px}
+.stat-item .num span{color:#7dffd3}
+.stat-item p{font-size:.78rem;opacity:.8;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+/* ─────────────────────────────────────────────
+   SPECIALTIES
+───────────────────────────────────────────── */
+.specialty-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;border:1.5px solid transparent;transition:all .2s;cursor:pointer}
+.specialty-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.specialty-icon{width:56px;height:56px;border-radius:12px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:16px;transition:.2s}
+.specialty-card:hover .specialty-icon{background:var(--blue);color:#fff}
+.specialty-card h4{font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:8px}
+.specialty-card p{font-size:.8rem;color:var(--gray);line-height:1.6}
+.specialty-card .learn{font-size:.78rem;font-weight:700;color:var(--blue);margin-top:14px;display:inline-flex;align-items:center;gap:5px}
+/* ─────────────────────────────────────────────
+   DOCTORS
+───────────────────────────────────────────── */
+.doctor-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:all .2s}
+.doctor-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.doctor-avatar{width:100%;height:220px;background:linear-gradient(135deg,var(--blue-light),var(--cyan-light));display:flex;align-items:center;justify-content:center;font-size:4rem;color:var(--blue);position:relative;overflow:hidden}
+.doctor-avatar::before{content:'';position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(0deg,rgba(13,124,102,.1),transparent)}
+.doctor-info{padding:18px}
+.doctor-info h4{font-weight:800;font-size:.98rem;color:var(--navy);margin-bottom:2px}
+.doctor-info .spec{font-size:.78rem;color:var(--blue);font-weight:600;margin-bottom:6px}
+.doctor-info .qual{font-size:.74rem;color:var(--gray);margin-bottom:4px}
+.doctor-info .exp{font-size:.74rem;color:var(--gray)}
+.doctor-info .exp i{color:var(--cyan);margin-right:3px}
+.doctor-info .btn{width:100%;justify-content:center;margin-top:14px;padding:10px}
+/* ─────────────────────────────────────────────
+   WHY US
+───────────────────────────────────────────── */
+.why-us{background:linear-gradient(135deg,var(--navy) 0%,#0a5f4e 100%);color:#fff;position:relative;overflow:hidden}
+.why-us::before{content:'';position:absolute;right:-100px;top:-100px;width:400px;height:400px;border-radius:50%;background:rgba(44,125,160,.1)}
+.why-item{display:flex;gap:16px;padding:24px;border-radius:var(--radius);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);transition:.2s}
+.why-item:hover{background:rgba(255,255,255,.1)}
+.why-icon{width:48px;height:48px;border-radius:10px;background:rgba(44,125,160,.2);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.why-item h4{font-weight:700;margin-bottom:6px;font-size:.95rem}
+.why-item p{font-size:.78rem;opacity:.75;line-height:1.6}
+/* ─────────────────────────────────────────────
+   TESTIMONIALS
+───────────────────────────────────────────── */
+.testimonial-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;border-left:4px solid var(--blue)}
+.testimonial-card .stars{color:#f59e0b;font-size:.85rem;margin-bottom:12px}
+.testimonial-card blockquote{font-size:.9rem;line-height:1.7;color:var(--text);margin-bottom:16px;font-style:italic}
+.testimonial-card .author{display:flex;align-items:center;gap:10px}
+.testimonial-card .avatar{width:40px;height:40px;border-radius:50%;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+.testimonial-card .author-name{font-weight:700;font-size:.85rem;color:var(--navy)}
+.testimonial-card .author-detail{font-size:.72rem;color:var(--gray)}
+/* ─────────────────────────────────────────────
+   INSURANCE / AWARDS
+───────────────────────────────────────────── */
+.partners-strip{background:var(--off);padding:40px 0}
+.partner-logo{display:flex;align-items:center;justify-content:center;padding:16px 24px;background:#fff;border-radius:var(--radius-sm);border:1.5px solid var(--gray-light);font-weight:700;font-size:.8rem;color:var(--gray)}
+.partner-logos-grid{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+.award-badge{background:#fff;border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow)}
+.award-badge .award-icon{font-size:2rem;color:var(--blue);margin-bottom:8px}
+.award-badge p{font-size:.78rem;font-weight:600;color:var(--navy);line-height:1.4}
+/* ─────────────────────────────────────────────
+   FAQ
+───────────────────────────────────────────── */
+.faq-item{border-radius:var(--radius-sm);border:1.5px solid var(--gray-light);margin-bottom:10px;overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--navy);user-select:none}
+.faq-q:hover{background:var(--off)}
+.faq-q i{color:var(--blue);transition:.2s;flex-shrink:0}
+.faq-item.open .faq-q i{transform:rotate(180deg)}
+.faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
+.faq-item.open .faq-a{max-height:200px;padding:0 20px 18px}
+.faq-a p{font-size:.85rem;color:var(--gray);line-height:1.7}
+/* ─────────────────────────────────────────────
+   HEALTH CHECKUP PACKAGES
+───────────────────────────────────────────── */
+.package-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1.5px solid transparent;transition:.2s}
+.package-card:hover,.package-card.featured{border-color:var(--blue)}
+.package-card.featured{transform:scale(1.03)}
+.package-header{padding:24px;background:linear-gradient(135deg,var(--blue),var(--cyan))}
+.package-header.alt{background:linear-gradient(135deg,var(--navy),var(--blue))}
+.package-header h3{color:#fff;font-weight:800;font-size:1.1rem;margin-bottom:4px}
+.package-header p{color:rgba(255,255,255,.8);font-size:.78rem}
+.package-price{display:flex;align-items:baseline;gap:4px;margin-top:12px;color:#fff}
+.package-price .amount{font-size:2rem;font-weight:800;font-family:var(--font-display)}
+.package-price .period{font-size:.78rem;opacity:.8}
+.package-body{padding:20px}
+.package-benefits{list-style:none;margin-bottom:16px}
+.package-benefits li{font-size:.82rem;padding:6px 0;border-bottom:1px solid var(--gray-light);color:var(--text);display:flex;align-items:center;gap:8px}
+.package-benefits li:last-child{border-bottom:none}
+.package-benefits i{color:#16a34a;font-size:.75rem}
+.package-body .btn{width:100%;justify-content:center;margin-top:8px}
+/* ─────────────────────────────────────────────
+   WELLNESS PROGRAMS
+───────────────────────────────────────────── */
+.wellness-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;border-top:4px solid var(--blue);transition:.2s}
+.wellness-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.wellness-card.alt{border-top-color:var(--cyan)}
+.wellness-card h4{font-weight:800;color:var(--navy);font-size:1rem;margin-bottom:10px}
+.wellness-card p{font-size:.82rem;color:var(--gray);line-height:1.7;margin-bottom:14px}
+.wellness-bullets{list-style:none}
+.wellness-bullets li{font-size:.78rem;color:var(--text);padding:4px 0;display:flex;align-items:center;gap:8px}
+.wellness-bullets li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0}
+/* ─────────────────────────────────────────────
+   APPOINTMENT FORM
+───────────────────────────────────────────── */
+.appt-hero{background:linear-gradient(135deg,#0a3d2e,#0d7c66);padding:60px 0;color:#fff;text-align:center}
+.appt-hero h1{font-family:var(--font-display);font-size:2.4rem;margin-bottom:10px}
+.appt-hero p{opacity:.85;font-size:1rem}
+.appt-form-wrap{max-width:860px;margin:0 auto;padding:40px 24px}
+.form-card{background:#fff;border-radius:20px;box-shadow:var(--shadow-lg);padding:40px}
+.form-section-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gray);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.form-section-title::after{content:'';flex:1;height:1px;background:var(--gray-light)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
+.form-group{display:flex;flex-direction:column;margin-bottom:14px}
+.form-group label{font-size:.78rem;font-weight:700;color:var(--blue);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.form-group input,.form-group select,.form-group textarea{padding:12px 14px;border:1.5px solid var(--gray-light);border-radius:10px;font-family:var(--font-body);font-size:.88rem;color:var(--text);transition:.2s;background:#fff}
+.form-group input::placeholder,.form-group textarea::placeholder{color:#b0bec5}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(13,124,102,.1)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-group select{cursor:pointer}
+.form-submit{text-align:center;margin-top:24px}
+.form-submit .btn{padding:15px 48px;font-size:.95rem}
+.form-status{margin-top:16px;padding:14px 18px;border-radius:10px;font-size:.85rem;display:none;align-items:center;gap:10px}
+.status-success{background:#d1fae5;color:#065f46;border-left:4px solid #059669;display:flex}
+.status-error{background:#fee2e2;color:#991b1b;border-left:4px solid #dc2626;display:flex}
+.status-loading{background:#e0f2fe;color:#075985;border-left:4px solid #0284c7;display:flex}
+/* ─────────────────────────────────────────────
+   CONTACT PAGE
+───────────────────────────────────────────── */
+.contact-info-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
+.contact-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--gray-light)}
+.contact-item:last-child{border-bottom:none}
+.contact-item .ci-icon{width:44px;height:44px;border-radius:10px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.contact-item .ci-label{font-size:.72rem;color:var(--gray);margin-bottom:4px}
+.contact-item .ci-val{font-weight:600;font-size:.9rem;color:var(--navy)}
+.map-placeholder{background:linear-gradient(135deg,var(--blue-light),var(--cyan-light));border-radius:var(--radius);height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--blue);font-weight:700;border:2px dashed var(--blue);margin-top:20px}
+.map-placeholder i{font-size:2.5rem;margin-bottom:10px}
+/* ─────────────────────────────────────────────
+   POPUP
+───────────────────────────────────────────── */
+.popup-overlay{position:fixed;inset:0;background:rgba(10,61,46,.6);backdrop-filter:blur(4px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.3s}
+.popup-overlay.show{opacity:1;pointer-events:all}
+.popup-box{background:#fff;border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.3);width:100%;max-width:520px;overflow:hidden;transform:scale(.93) translateY(20px);transition:.3s}
+.popup-overlay.show .popup-box{transform:scale(1) translateY(0)}
+.popup-header{background:linear-gradient(105deg,#0d7c66,#2c7da0);padding:24px 28px;color:#fff;position:relative}
+.popup-header h3{font-size:1.2rem;font-weight:800;margin-bottom:4px}
+.popup-header p{font-size:.8rem;opacity:.85}
+.popup-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.popup-body{padding:24px 28px}
+.popup-body .form-group{margin-bottom:12px}
+.popup-footer{padding:0 28px 24px;text-align:center}
+.popup-footer .btn{width:100%;justify-content:center}
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+.footer{background:var(--navy);color:#fff}
+.footer-main{padding:60px 0 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:40px}
+.footer-brand .logo{margin-bottom:16px}
+.footer-brand .logo-text{color:#fff}
+.footer-brand p{font-size:.8rem;opacity:.7;line-height:1.7;margin-bottom:20px}
+.footer-social{display:flex;gap:10px}
+.social-icon{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:.2s}
+.social-icon:hover{background:#0d7c66}
+.footer-col h5{font-weight:700;font-size:.88rem;margin-bottom:16px;color:#7dffd3}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:10px}
+.footer-links a{font-size:.8rem;opacity:.7;transition:.2s;cursor:pointer}
+.footer-links a:hover{opacity:1;color:var(--cyan)}
+.footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:.8rem;opacity:.8}
+.footer-contact-item i{color:#7dffd3;margin-top:2px;flex-shrink:0}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:18px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.75rem;opacity:.6}
+/* ─────────────────────────────────────────────
+   PAGE HERO (inner pages)
+───────────────────────────────────────────── */
+.page-hero{background:linear-gradient(130deg,#0a3d2e,#0d7c66);padding:60px 0;color:#fff;text-align:center}
+.page-hero h1{font-family:var(--font-display);font-size:2.2rem;margin-bottom:10px}
+.page-hero p{opacity:.85;max-width:560px;margin:0 auto;font-size:.95rem}
+.breadcrumb{margin-top:16px;font-size:.75rem;opacity:.7;display:flex;gap:6px;justify-content:center;align-items:center}
+/* ─────────────────────────────────────────────
+   PARTIAL SUBMIT / ABANDONED
+───────────────────────────────────────────── */
+.partial-banner{background:linear-gradient(90deg,#fff7ed,#fff3e0);border:1.5px solid #fed7aa;border-radius:var(--radius);padding:20px 24px;display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.partial-banner i{font-size:1.6rem;color:#d97706}
+.partial-banner h4{font-weight:700;color:#92400e;margin-bottom:4px}
+.partial-banner p{font-size:.8rem;color:#a16207}
+/* ─────────────────────────────────────────────
+   RESUL AUDIENCE SECTION
+───────────────────────────────────────────── */
+.audience-tag{background:linear-gradient(90deg,#0d7c66,#2c7da0);color:#fff;padding:3px 12px;border-radius:999px;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.resul-note{background:#e6f7f2;border:1.5px solid #0d7c66;border-radius:var(--radius-sm);padding:14px 18px;font-size:.78rem;color:var(--blue);margin-top:10px;display:flex;gap:10px;align-items:flex-start}
+.resul-note i{flex-shrink:0;margin-top:2px;color:#0d7c66}
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .5s ease both}
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+@media(max-width:1024px){
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-item:nth-child(2){border-right:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .hero .container{grid-template-columns:1fr;gap:40px;padding:60px 24px 40px}
+  .hero-visual{display:none}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr}
+  .hamburger{display:flex}
+  .nav-links,.nav-cta{display:none}
+  .topbar .right{display:none}
+  .page-hero h1{font-size:1.7rem}
+  .section{padding:56px 0}
+  .package-card.featured{transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="container inner">
+    <div class="left">
+      <span><i class="fas fa-phone-alt"></i>Emergency: 1800-CARE-911</span>
+      <span><i class="fas fa-clock"></i>Mon–Sat 9am–8pm · Emergency 24/7</span>
+    </div>
+    <div class="right">
+      <span><i class="fas fa-envelope"></i>info@carewellhospital.com</span>
+      <span><i class="fas fa-map-marker-alt"></i>Chennai · Mumbai · Bangalore · Kolkata</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="inner">
+    <div class="logo">
+      <div class="logo-icon"><i class="fas fa-hospital-user"></i></div>
+      <div class="logo-text"><span>Care</span>Well Hospital</div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="navigate('home')">Home</button>
+      <button class="nav-link" onclick="navigate('specialties')">Specialties</button>
+      <button class="nav-link" onclick="navigate('doctors')">Doctors</button>
+      <button class="nav-link" onclick="navigate('checkup')">Health Checkup</button>
+      <button class="nav-link" onclick="navigate('wellness')">Wellness</button>
+      <button class="nav-link" onclick="navigate('contact')">Contact</button>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-primary" onclick="navigate('appointment')"><i class="fas fa-calendar-plus"></i>Book Appointment</button>
+    </div>
+    <button class="hamburger" onclick="toggleMobile()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <button class="nav-link" onclick="navigate('home');toggleMobile()">Home</button>
+    <button class="nav-link" onclick="navigate('specialties');toggleMobile()">Specialties</button>
+    <button class="nav-link" onclick="navigate('doctors');toggleMobile()">Doctors</button>
+    <button class="nav-link" onclick="navigate('checkup');toggleMobile()">Health Checkup</button>
+    <button class="nav-link" onclick="navigate('wellness');toggleMobile()">Wellness</button>
+    <button class="nav-link" onclick="navigate('appointment');toggleMobile()">Book Appointment</button>
+    <button class="nav-link" onclick="navigate('contact');toggleMobile()">Contact</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+   PAGE: HOME
+══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Emergency Strip -->
+  <div class="emergency-strip">
+    <i class="fas fa-ambulance"></i>24/7 Emergency Services Available — Call 1800-CARE-911 Immediately
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="container">
+      <div class="hero-content fade-up">
+        <div class="hero-tag"><i class="fas fa-shield-alt"></i>NABH Accredited · JCI Certified</div>
+        <h1>Compassionate Care,<br><em>Advanced</em> Medicine</h1>
+        <p class="hero-desc">CareWell Hospital brings together world-class specialists, cutting-edge technology, and human-centred care — because your health deserves nothing less.</p>
+        <div class="hero-actions">
+          <button class="btn btn-white" onclick="navigate('appointment')"><i class="fas fa-calendar-check"></i>Book Appointment</button>
+          <button class="btn btn-outline" style="border-color:rgba(255,255,255,.5);color:#fff" onclick="navigate('specialties')"><i class="fas fa-stethoscope"></i>Our Specialties</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><strong>50<span>+</span></strong><span>Expert Doctors</span></div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat"><strong>20<span>+</span></strong><span>Specialties</span></div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat"><strong>1L<span>+</span></strong><span>Happy Patients</span></div>
+        </div>
+      </div>
+      <div class="hero-visual fade-up">
+        <div class="hero-card-main">
+          <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=700&q=80" alt="Doctor at CareWell" onerror="this.src='https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=700&q=80'">
+        </div>
+        <div class="hero-float hero-float-1">
+          <div class="float-icon"><i class="fas fa-heartbeat"></i></div>
+          <strong>24/7 Care</strong><br><span>Emergency & ICU</span>
+        </div>
+        <div class="hero-float hero-float-2">
+          <div class="float-icon"><i class="fas fa-award"></i></div>
+          <strong>NABH Accredited</strong><br><span>Quality Certified</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Banner -->
+  <div class="stats-banner">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item"><div class="num">50<span>+</span></div><p>Expert Doctors</p></div>
+        <div class="stat-item"><div class="num">20<span>+</span></div><p>Specialties</p></div>
+        <div class="stat-item"><div class="num">1,00,000<span>+</span></div><p>Happy Patients</p></div>
+        <div class="stat-item"><div class="num">15<span>+</span></div><p>Years of Excellence</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Specialties -->
+  <section class="section" style="background:var(--off)">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:48px">
+        <div class="tag"><i class="fas fa-star"></i>Our Expertise</div>
+        <h2 class="section-title">World-Class Specialties</h2>
+        <p class="section-sub">From routine wellness to complex treatments, our specialists deliver exceptional outcomes across every department.</p>
+      </div>
+      <div class="grid-4">
+        <div class="specialty-card" onclick="navigate('specialties')">
+          <div class="specialty-icon"><i class="fas fa-heart"></i></div>
+          <h4>Cardiology</h4>
+          <p>Comprehensive heart care including interventional cardiology, heart failure management and cardiac rehab.</p>
+          <div class="learn">Learn More <i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="specialty-card" onclick="navigate('specialties')">
+          <div class="specialty-icon"><i class="fas fa-brain"></i></div>
+          <h4>Neurology</h4>
+          <p>Advanced neurological diagnostics and treatments for stroke, epilepsy, Parkinson's and more.</p>
+          <div class="learn">Learn More <i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="specialty-card" onclick="navigate('specialties')">
+          <div class="specialty-icon"><i class="fas fa-bone"></i></div>
+          <h4>Orthopedics</h4>
+          <p>Joint replacements, sports medicine, spine surgery and full musculoskeletal rehabilitation.</p>
+          <div class="learn">Learn More <i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="specialty-card" onclick="navigate('specialties')">
+          <div class="specialty-icon"><i class="fas fa-baby"></i></div>
+          <h4>Pediatrics</h4>
+          <p>Dedicated child-friendly care from newborns through adolescence with PICU support.</p>
+          <div class="learn">Learn More <i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="specialty-card" onclick="navigate('specialties')">
+          <div class="specialty-icon"><i class="fas fa-user-md"></i></div>
+          <h4>Oncology</h4>
+          <p>State-of-the-art cancer care including chemotherapy, radiation and immunotherapy.</p>
+          <div class="learn">Learn More <i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="specialty-card" onclick="navigate('specialties')">
+          <div class="specialty-icon"><i class="fas fa-allergies"></i></div>
+          <h4>Dermatology</h4>
+          <p>Medical and cosmetic skin care, laser treatments, and comprehensive skin cancer screening.</p>
+          <div class="learn">Learn More <i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="specialty-card" onclick="navigate('specialties')">
+          <div class="specialty-icon"><i class="fas fa-flask"></i></div>
+          <h4>Gastroenterology</h4>
+          <p>Endoscopy, colonoscopy, liver care and complete digestive system treatments.</p>
+          <div class="learn">Learn More <i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="specialty-card" onclick="navigate('specialties')">
+          <div class="specialty-icon"><i class="fas fa-stethoscope"></i></div>
+          <h4>General Medicine</h4>
+          <p>Primary care, chronic disease management, and general health consultations for all ages.</p>
+          <div class="learn">Learn More <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+      <div class="text-center" style="margin-top:36px">
+        <button class="btn btn-primary" onclick="navigate('specialties')"><i class="fas fa-th-large"></i>View All Specialties</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Us -->
+  <section class="section why-us">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:48px">
+        <div class="tag" style="background:rgba(255,255,255,.1);color:#7dffd3"><i class="fas fa-medal"></i>Why CareWell</div>
+        <h2 class="section-title" style="color:#fff">Why Patients Choose Us</h2>
+        <p class="section-sub" style="color:rgba(255,255,255,.75);max-width:520px;margin:0 auto">We combine clinical excellence with genuine compassion — making every patient feel heard, respected, and cared for.</p>
+      </div>
+      <div class="grid-4">
+        <div class="why-item">
+          <div class="why-icon"><i class="fas fa-user-md"></i></div>
+          <div><h4>Experienced Doctors</h4><p>50+ specialists with 15+ years average experience, trained at premier institutions globally.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="fas fa-microscope"></i></div>
+          <div><h4>Advanced Technology</h4><p>3T MRI, robotic surgery, AI-assisted diagnostics and latest medical equipment.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="fas fa-ambulance"></i></div>
+          <div><h4>24/7 Emergency Care</h4><p>Round-the-clock emergency services with rapid response trauma and cardiac teams.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="fas fa-hand-holding-heart"></i></div>
+          <div><h4>Personalised Treatment</h4><p>Tailored care plans built around each patient's unique medical history and goals.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appointment CTA -->
+  <section class="section-sm" style="background:linear-gradient(90deg,#0a5f4e,#0d7c66)">
+    <div class="container text-center">
+      <h2 style="font-family:var(--font-display);color:#fff;font-size:2rem;margin-bottom:12px">Ready to Prioritise Your Health?</h2>
+      <p style="color:rgba(255,255,255,.8);margin-bottom:28px;font-size:.95rem">Book a consultation with our specialists today. Same-day appointments available.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-white" onclick="navigate('appointment')"><i class="fas fa-calendar-check"></i>Book Appointment</button>
+        <button class="btn" style="border:2px solid rgba(255,255,255,.5);color:#fff;background:transparent" onclick="navigate('checkup')"><i class="fas fa-heartbeat"></i>View Health Checkups</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:48px">
+        <div class="tag"><i class="fas fa-quote-left"></i>Patient Stories</div>
+        <h2 class="section-title">What Our Patients Say</h2>
+        <p class="section-sub">Real stories from the people we've had the privilege of caring for.</p>
+      </div>
+      <div class="grid-3">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <blockquote>"The cardiology team at CareWell saved my father's life. Dr. Suresh's expertise during the bypass surgery was exceptional. The nurses were incredibly attentive throughout the recovery."</blockquote>
+          <div class="author">
+            <div class="avatar">RK</div>
+            <div><div class="author-name">Rajesh Kumar</div><div class="author-detail">Cardiac Patient, Chennai</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <blockquote>"From the moment I walked in for my annual health checkup, everything was seamless. The reports were ready in hours. I truly felt valued as a patient, not just a number."</blockquote>
+          <div class="author">
+            <div class="avatar">PA</div>
+            <div><div class="author-name">Priya Anand</div><div class="author-detail">Executive Checkup, Bangalore</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <blockquote>"CareWell's oncology team gave me more than treatment — they gave me hope. The multidisciplinary approach and personalised support through my cancer journey made all the difference."</blockquote>
+          <div class="author">
+            <div class="avatar">MS</div>
+            <div><div class="author-name">Meena Sundaram</div><div class="author-detail">Cancer Survivor, Mumbai</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards & Accreditations -->
+  <section class="section-sm" style="background:var(--off)">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:36px">
+        <div class="tag"><i class="fas fa-award"></i>Recognition</div>
+        <h2 class="section-title">Awards & Accreditations</h2>
+      </div>
+      <div class="grid-4">
+        <div class="award-badge"><div class="award-icon"><i class="fas fa-certificate"></i></div><p>NABH Accredited Hospital 2024</p></div>
+        <div class="award-badge"><div class="award-icon"><i class="fas fa-globe"></i></div><p>JCI International Certification</p></div>
+        <div class="award-badge"><div class="award-icon"><i class="fas fa-trophy"></i></div><p>Best Multi-Specialty Hospital — South India 2023</p></div>
+        <div class="award-badge"><div class="award-icon"><i class="fas fa-star"></i></div><p>Patient Choice Award — 5 Consecutive Years</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insurance Partners -->
+  <div class="partners-strip">
+    <div class="container text-center">
+      <p style="font-size:.75rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px">Accepted Insurance Partners</p>
+      <div class="partner-logos-grid">
+        <div class="partner-logo"><i class="fas fa-shield-alt" style="color:var(--blue);margin-right:6px"></i>Star Health</div>
+        <div class="partner-logo"><i class="fas fa-shield-alt" style="color:var(--blue);margin-right:6px"></i>HDFC Ergo</div>
+        <div class="partner-logo"><i class="fas fa-shield-alt" style="color:var(--blue);margin-right:6px"></i>Bajaj Allianz</div>
+        <div class="partner-logo"><i class="fas fa-shield-alt" style="color:var(--blue);margin-right:6px"></i>New India Assurance</div>
+        <div class="partner-logo"><i class="fas fa-shield-alt" style="color:var(--blue);margin-right:6px"></i>United India</div>
+        <div class="partner-logo"><i class="fas fa-shield-alt" style="color:var(--blue);margin-right:6px"></i>Mediassist</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start">
+        <div>
+          <div class="tag"><i class="fas fa-question-circle"></i>FAQ</div>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-sub">Have a question? We probably have the answer. If not, our team is always happy to help.</p>
+          <button class="btn btn-primary" style="margin-top:24px" onclick="navigate('contact')"><i class="fas fa-envelope"></i>Contact Us</button>
+        </div>
+        <div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">How do I book an appointment? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a"><p>You can book an appointment online through our website, by calling our helpline at 1800-CARE-911, or by walking into any of our branches. Same-day appointments are available for most specialties.</p></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">What insurance plans do you accept? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a"><p>We are empanelled with all major insurance providers including Star Health, HDFC Ergo, Bajaj Allianz, New India Assurance, and many more. Our billing team can assist with cashless claims.</p></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">Are your health checkup packages customisable? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a"><p>Yes, all our health checkup packages can be customised based on your age, medical history, and specific concerns. Our wellness counsellors will guide you to the right package.</p></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">How soon will I receive my test reports? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a"><p>Most routine reports are available within 4–6 hours. Advanced tests like biopsies and cultures may take 24–72 hours. Reports are shared digitally and in person.</p></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">Do you have facilities for international patients? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a"><p>Yes, our International Patient Services team handles visa letters, airport pickup, accommodation, translation support, and dedicated care coordinators for patients travelling from abroad.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<!-- END PAGE HOME -->
+
+<!-- ══════════════════════════════════════
+   PAGE: SPECIALTIES
+══════════════════════════════════════ -->
+<div class="page" id="page-specialties">
+  <div class="page-hero">
+    <h1>Our Specialties</h1>
+    <p>Expert care across 20+ medical disciplines, powered by the latest technology and India's finest specialists.</p>
+    <div class="breadcrumb">Home <i class="fas fa-chevron-right" style="font-size:.6rem"></i> Specialties</div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div id="specialties-list"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════
+   PAGE: DOCTORS
+══════════════════════════════════════ -->
+<div class="page" id="page-doctors">
+  <div class="page-hero">
+    <h1>Meet Our Doctors</h1>
+    <p>Our team of 50+ specialists brings decades of combined experience, global training, and genuine dedication to your care.</p>
+    <div class="breadcrumb">Home <i class="fas fa-chevron-right" style="font-size:.6rem"></i> Doctors</div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px">
+        <button class="btn btn-primary" id="filter-all" onclick="filterDoctors('all')">All Specialties</button>
+        <button class="btn btn-outline" onclick="filterDoctors('Cardiology')">Cardiology</button>
+        <button class="btn btn-outline" onclick="filterDoctors('Neurology')">Neurology</button>
+        <button class="btn btn-outline" onclick="filterDoctors('Orthopedics')">Orthopedics</button>
+        <button class="btn btn-outline" onclick="filterDoctors('Oncology')">Oncology</button>
+        <button class="btn btn-outline" onclick="filterDoctors('Pediatrics')">Pediatrics</button>
+      </div>
+      <div class="grid-4" id="doctors-grid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════
+   PAGE: HEALTH CHECKUP
+══════════════════════════════════════ -->
+<div class="page" id="page-checkup">
+  <div class="page-hero">
+    <div style="margin-bottom:8px"><span class="audience-tag">RESUL Audience 1 – Preventive Health Checkup Interested</span></div>
+    <h1>Health Checkup Programs</h1>
+    <p>Comprehensive preventive packages designed to detect risks early and keep you ahead of illness.</p>
+    <div class="breadcrumb">Home <i class="fas fa-chevron-right" style="font-size:.6rem"></i> Health Checkup</div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="resul-note" style="margin-bottom:36px">
+        <i class="fas fa-info-circle"></i>
+        <div><strong>RESUL Integration Active:</strong> Visitors to this page are automatically added to the "Preventive Health Checkup Interested" audience segment. A lead capture popup will appear after 20 seconds.</div>
+      </div>
+      <div id="packages-grid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════
+   PAGE: WELLNESS
+══════════════════════════════════════ -->
+<div class="page" id="page-wellness">
+  <div class="page-hero">
+    <div style="margin-bottom:8px"><span class="audience-tag">RESUL Audience 2 – Wellness Program Interested</span></div>
+    <h1>Wellness Programs</h1>
+    <p>Structured lifestyle and disease management programs for a healthier, longer life.</p>
+    <div class="breadcrumb">Home <i class="fas fa-chevron-right" style="font-size:.6rem"></i> Wellness</div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="resul-note" style="margin-bottom:36px">
+        <i class="fas fa-info-circle"></i>
+        <div><strong>RESUL Integration Active:</strong> Visitors to this page are automatically added to the "Wellness Program Interested" audience segment. An interest capture popup will appear immediately.</div>
+      </div>
+      <div class="grid-3" id="wellness-grid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════
+   PAGE: APPOINTMENT
+══════════════════════════════════════ -->
+<div class="page" id="page-appointment">
+  <div class="appt-hero">
+    <h1>Book an Appointment</h1>
+    <p>Choose your specialist, select a convenient time, and we'll confirm within 2 hours.</p>
+  </div>
+  <div class="appt-form-wrap">
+    <!-- Partial Submit Demo Banner -->
+    <div class="partial-banner" id="partialBanner" style="display:none">
+      <i class="fas fa-exclamation-triangle"></i>
+      <div>
+        <h4>Don't forget to complete your appointment!</h4>
+        <p>You started filling in your details. Complete the form to secure your consultation slot. <strong>RESUL Reminder Workflow:</strong> Automated follow-up SMS & email triggered for abandoned forms.</p>
+      </div>
+    </div>
+    <div class="form-card">
+      <form id="apptForm">
+        <div class="form-section-title">Personal Information</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i>First Name *</label>
+            <input type="text" id="fName" placeholder="Priya" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-user"></i>Last Name *</label>
+            <input type="text" id="lName" placeholder="Sharma" required>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label><i class="fas fa-envelope"></i>Email Address *</label>
+            <input type="email" id="apptEmail" placeholder="priya@email.com" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-phone-alt"></i>Mobile Number *</label>
+            <input type="tel" id="apptMobile" placeholder="9876543210" required>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label><i class="fas fa-map-marker-alt"></i>City *</label>
+            <select id="apptCity" required>
+              <option value="">Select City</option>
+              <option>Chennai</option><option>Mumbai</option><option>Bangalore</option><option>Kolkata</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-notes-medical"></i>Department *</label>
+            <select id="apptDept" required onchange="updateDoctors()">
+              <option value="">Select Department</option>
+              <option>Cardiology</option><option>Neurology</option><option>Orthopedics</option>
+              <option>Pediatrics</option><option>Dermatology</option><option>Oncology</option>
+              <option>Gastroenterology</option><option>General Medicine</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-section-title" style="margin-top:8px">Appointment Preferences</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label><i class="fas fa-user-md"></i>Preferred Doctor</label>
+            <select id="apptDoctor">
+              <option value="">Select Department First</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-calendar-alt"></i>Preferred Date *</label>
+            <input type="date" id="apptDate" required>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label><i class="fas fa-clock"></i>Preferred Time *</label>
+            <select id="apptTime" required>
+              <option value="">Select Time</option>
+              <option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option>
+              <option>12:00 PM</option><option>2:00 PM</option><option>3:00 PM</option>
+              <option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-tag"></i>Consultation Type</label>
+            <select id="apptType">
+              <option>In-Person</option><option>Video Consultation</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-file-medical"></i>Symptoms / Notes</label>
+          <textarea id="apptNotes" placeholder="Briefly describe your symptoms or the purpose of your visit..."></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary" id="apptSubmitBtn"><i class="fas fa-calendar-check"></i>Confirm Appointment</button>
+        </div>
+        <div id="apptStatus" class="form-status"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+   PAGE: CONTACT
+══════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="page-hero">
+    <h1>Contact Us</h1>
+    <p>We're here to help. Reach us any time — our patient services team is available 24/7 for emergencies.</p>
+    <div class="breadcrumb">Home <i class="fas fa-chevron-right" style="font-size:.6rem"></i> Contact</div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="align-items:start">
+        <div>
+          <div class="contact-info-card">
+            <h3 style="font-weight:800;color:var(--navy);margin-bottom:4px">CareWell Hospital</h3>
+            <p style="font-size:.78rem;color:var(--gray);margin-bottom:16px">Compassionate Care, Advanced Medicine</p>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div><div class="ci-label">Main Campus</div><div class="ci-val">No. 12, Mount Road, Teynampet, Chennai – 600 018, Tamil Nadu</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
+              <div><div class="ci-label">Appointments</div><div class="ci-val">+91 44 6789 0000</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-ambulance"></i></div>
+              <div><div class="ci-label">Emergency (24/7)</div><div class="ci-val" style="color:#cc0000">1800-CARE-911</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+              <div><div class="ci-label">Email</div><div class="ci-val">info@carewellhospital.com</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-clock"></i></div>
+              <div><div class="ci-label">OPD Hours</div><div class="ci-val">Mon – Sat: 9:00 AM – 8:00 PM</div></div>
+            </div>
+          </div>
+          <div class="map-placeholder">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Google Maps — CareWell Hospital, Chennai</span>
+            <span style="font-size:.75rem;font-weight:400;margin-top:4px">No. 12, Mount Road, Teynampet</span>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="padding:32px">
+            <h3 style="font-weight:800;color:var(--navy);margin-bottom:20px">Send Us a Message</h3>
+            <form id="contactForm">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label><i class="fas fa-user"></i>Full Name *</label>
+                  <input type="text" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                  <label><i class="fas fa-phone-alt"></i>Mobile *</label>
+                  <input type="tel" placeholder="9876543210" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-envelope"></i>Email *</label>
+                <input type="email" placeholder="you@email.com" required>
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-tag"></i>Subject</label>
+                <select>
+                  <option>General Inquiry</option>
+                  <option>Appointment Query</option>
+                  <option>Billing & Insurance</option>
+                  <option>Feedback / Complaint</option>
+                  <option>International Patient</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-comment-alt"></i>Message</label>
+                <textarea placeholder="How can we help you?"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitContact(event)"><i class="fas fa-paper-plane"></i>Send Message</button>
+              <div id="contactStatus" class="form-status"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════
+   FOOTER (global)
+══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon"><i class="fas fa-hospital-user"></i></div>
+            <div class="logo-text"><span>Care</span>Well Hospital</div>
+          </div>
+          <p>Compassionate Care, Advanced Medicine. Trusted by 1,00,000+ patients across 4 cities — delivering clinical excellence with a human touch.</p>
+          <div class="footer-social">
+            <a class="social-icon" href="#"><i class="fab fa-facebook-f"></i></a>
+            <a class="social-icon" href="#"><i class="fab fa-instagram"></i></a>
+            <a class="social-icon" href="#"><i class="fab fa-twitter"></i></a>
+            <a class="social-icon" href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a class="social-icon" href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a onclick="navigate('home')">Home</a></li>
+            <li><a onclick="navigate('specialties')">Specialties</a></li>
+            <li><a onclick="navigate('doctors')">Find a Doctor</a></li>
+            <li><a onclick="navigate('appointment')">Book Appointment</a></li>
+            <li><a onclick="navigate('checkup')">Health Checkup</a></li>
+            <li><a onclick="navigate('wellness')">Wellness Programs</a></li>
+            <li><a onclick="navigate('contact')">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Our Services</h5>
+          <ul class="footer-links">
+            <li><a>Cardiology</a></li>
+            <li><a>Neurology</a></li>
+            <li><a>Orthopedics</a></li>
+            <li><a>Oncology</a></li>
+            <li><a>Pediatrics</a></li>
+            <li><a>Dermatology</a></li>
+            <li><a>Gastroenterology</a></li>
+            <li><a>Emergency Care</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Get in Touch</h5>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>No. 12, Mount Road, Teynampet, Chennai – 600 018</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone-alt"></i><span>+91 44 6789 0000</span></div>
+          <div class="footer-contact-item"><i class="fas fa-ambulance"></i><span>Emergency: 1800-CARE-911</span></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@carewellhospital.com</span></div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon–Sat: 9am – 8pm</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2024 CareWell Hospital. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Use · Sitemap</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+   POPUPS
+══════════════════════════════════════ -->
+<!-- Checkup Popup -->
+<div class="popup-overlay" id="checkupPopup">
+  <div class="popup-box">
+    <div class="popup-header">
+      <h3><i class="fas fa-heartbeat"></i> Preventive Health Checkup</h3>
+      <p>Special offer — packages starting at ₹1,499. Claim yours today.</p>
+      <button class="popup-close" onclick="closePopup('checkupPopup')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="popup-body">
+      <div class="resul-note" style="margin-bottom:16px;font-size:.72rem"><i class="fas fa-tag"></i><span>RESUL Use Case 1 – Triggered after 20 seconds on Preventive Health Checkup page</span></div>
+      <div class="form-group"><label><i class="fas fa-user"></i>Full Name *</label><input type="text" placeholder="Your name" id="cu-name"></div>
+      <div class="form-group"><label><i class="fas fa-phone-alt"></i>Mobile *</label><input type="tel" placeholder="9876543210" id="cu-mobile"></div>
+      <div class="form-group"><label><i class="fas fa-map-marker-alt"></i>City</label>
+        <select id="cu-city"><option>Chennai</option><option>Mumbai</option><option>Bangalore</option><option>Kolkata</option></select>
+      </div>
+    </div>
+    <div class="popup-footer">
+      <button class="btn btn-primary" onclick="submitPopup('checkupPopup','checkup-status')"><i class="fas fa-paper-plane"></i>Claim Free Consultation</button>
+      <div id="checkup-status" class="form-status" style="margin-top:10px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Wellness Popup -->
+<div class="popup-overlay" id="wellnessPopup">
+  <div class="popup-box">
+    <div class="popup-header" style="background:linear-gradient(105deg,#0a3d2e,#2c7da0)">
+      <h3><i class="fas fa-leaf"></i> Wellness Program Interest</h3>
+      <p>Tell us about your wellness goals and we'll match you to the right program.</p>
+      <button class="popup-close" onclick="closePopup('wellnessPopup')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="popup-body">
+      <div class="resul-note" style="margin-bottom:16px;font-size:.72rem"><i class="fas fa-tag"></i><span>RESUL Use Case 2 – Triggered immediately on Wellness Programs page</span></div>
+      <div class="form-group"><label><i class="fas fa-user"></i>Full Name *</label><input type="text" placeholder="Your name" id="wp-name"></div>
+      <div class="form-group"><label><i class="fas fa-phone-alt"></i>Mobile *</label><input type="tel" placeholder="9876543210" id="wp-mobile"></div>
+      <div class="form-group"><label><i class="fas fa-leaf"></i>Interested In</label>
+        <select id="wp-interest">
+          <option>Weight Management</option><option>Diabetes Management</option>
+          <option>Heart Health</option><option>Nutrition Counseling</option><option>Mental Wellness</option>
+        </select>
+      </div>
+    </div>
+    <div class="popup-footer">
+      <button class="btn btn-cyan" onclick="submitPopup('wellnessPopup','wellness-status')"><i class="fas fa-paper-plane"></i>Enroll Now</button>
+      <div id="wellness-status" class="form-status" style="margin-top:10px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+   JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+// ── DATA ──────────────────────────────────────────────
+const SPECIALTIES=[
+  {icon:'fas fa-heart',name:'Cardiology',desc:'Our Cardiology department is equipped with state-of-the-art catheterisation labs, advanced echocardiography, and a dedicated cardiac ICU. We treat everything from hypertension and arrhythmias to complex valve disorders and heart failure.',treatments:['Coronary Angioplasty & Stenting','Pacemaker Implantation','Valve Replacement Surgery','Heart Failure Management','Cardiac Electrophysiology','Preventive Cardiology']},
+  {icon:'fas fa-brain',name:'Neurology',desc:'Our Neurology unit offers comprehensive diagnosis and treatment for disorders of the brain, spine and nervous system. We have a dedicated stroke unit with 24/7 thrombolysis capability.',treatments:['Stroke Management & Rehab','Epilepsy Monitoring & Surgery','Parkinson\'s Disease Management','Multiple Sclerosis Treatment','Migraine & Headache Clinic','Nerve Conduction Studies']},
+  {icon:'fas fa-bone',name:'Orthopedics',desc:'CareWell Orthopedics covers the full spectrum of bone, joint and muscle conditions. Our robotic joint replacement programme achieves best-in-class outcomes and recovery times.',treatments:['Robotic Knee & Hip Replacement','Arthroscopic Surgery','Spine & Disc Surgery','Sports Injury Management','Fracture & Trauma Care','Paediatric Orthopaedics']},
+  {icon:'fas fa-baby',name:'Pediatrics',desc:'Our child-friendly Pediatrics department provides specialised care for newborns, infants, children and adolescents. We have a Level III NICU and a dedicated Paediatric ICU.',treatments:['Neonatology & NICU Care','Paediatric Cardiology','Developmental Paediatrics','Vaccination Clinics','Paediatric Nutrition','Adolescent Medicine']},
+  {icon:'fas fa-allergies',name:'Dermatology',desc:'From medical dermatology to advanced cosmetic procedures, our dermatologists provide personalised skin care for all ages and skin types.',treatments:['Acne & Scar Treatment','Skin Cancer Screening','Laser & Light Therapies','Psoriasis & Eczema Care','Hair Loss Treatment','Cosmetic Dermatology']},
+  {icon:'fas fa-user-md',name:'Oncology',desc:'Our Oncology centre brings together surgical, medical and radiation oncologists to provide a truly multidisciplinary, patient-centred approach to cancer care.',treatments:['Chemotherapy & Immunotherapy','Radiation Therapy (IMRT/VMAT)','Targeted Therapy','Bone Marrow Transplant','Cancer Genetics Counselling','Palliative & Supportive Care']},
+  {icon:'fas fa-flask',name:'Gastroenterology',desc:'Our gastroenterologists and hepatologists manage the full range of digestive and liver disorders, supported by a fully equipped endoscopy suite.',treatments:['Diagnostic & Therapeutic Endoscopy','Colonoscopy & Polypectomy','ERCP & Biliary Procedures','Liver Disease & Hepatitis','IBD Management','Capsule Endoscopy']},
+  {icon:'fas fa-stethoscope',name:'General Medicine',desc:'Our Internal Medicine team provides expert evaluation and management of complex multi-system diseases, serving as the backbone of in-patient and out-patient care.',treatments:['Chronic Disease Management','Hypertension & Diabetes','Fever & Infections','Preventive Health Consultations','Second Opinion Service','Pre-surgical Evaluation']},
+];
+
+const DOCTORS=[
+  {name:'Dr. Arjun Mehta',spec:'Cardiology',qual:'MBBS, DM (Cardiology)',exp:'22 Years',icon:'👨‍⚕️'},
+  {name:'Dr. Sunita Rao',spec:'Cardiology',qual:'MBBS, DNB (Cardiology)',exp:'18 Years',icon:'👩‍⚕️'},
+  {name:'Dr. Vikram Nair',spec:'Neurology',qual:'MBBS, DM (Neurology)',exp:'20 Years',icon:'👨‍⚕️'},
+  {name:'Dr. Preethi Sharma',spec:'Neurology',qual:'MBBS, MD, DM',exp:'15 Years',icon:'👩‍⚕️'},
+  {name:'Dr. Ramesh Iyer',spec:'Orthopedics',qual:'MBBS, MS (Ortho)',exp:'25 Years',icon:'👨‍⚕️'},
+  {name:'Dr. Kavitha Menon',spec:'Orthopedics',qual:'MBBS, DNB (Ortho)',exp:'14 Years',icon:'👩‍⚕️'},
+  {name:'Dr. Suresh Patel',spec:'Oncology',qual:'MBBS, MD, DM (Oncology)',exp:'19 Years',icon:'👨‍⚕️'},
+  {name:'Dr. Ananya Das',spec:'Pediatrics',qual:'MBBS, MD (Pediatrics)',exp:'16 Years',icon:'👩‍⚕️'},
+  {name:'Dr. Krishnamurthy V.',spec:'Gastroenterology',qual:'MBBS, DM (Gastro)',exp:'21 Years',icon:'👨‍⚕️'},
+  {name:'Dr. Deepa Krishnan',spec:'Dermatology',qual:'MBBS, MD (Dermatology)',exp:'12 Years',icon:'👩‍⚕️'},
+  {name:'Dr. Harish Bhat',spec:'General Medicine',qual:'MBBS, MD (Internal Medicine)',exp:'17 Years',icon:'👨‍⚕️'},
+  {name:'Dr. Meera Pillai',spec:'Pediatrics',qual:'MBBS, MD, Fellowship NICU',exp:'13 Years',icon:'👩‍⚕️'},
+];
+
+const PACKAGES=[
+  {name:'Preventive Health Checkup',badge:'Most Popular',header:'',price:'₹1,499',desc:'Essential screening for healthy adults aged 18–40.',benefits:['Complete Blood Count (CBC)','Lipid Profile','Blood Sugar (FBS & PPBS)','Liver & Kidney Function','ECG Resting','Urine Routine','Chest X-Ray','Doctor Consultation'],featured:true},
+  {name:'Executive Health Checkup',badge:'Comprehensive',header:'alt',price:'₹3,999',desc:'Thorough evaluation for busy professionals aged 35+.',benefits:['All Preventive tests +','2D Echo Cardiography','Thyroid Profile (T3/T4/TSH)','Vitamin D & B12','PSA / Pap Smear','Pulmonary Function Test','Stress Test (TMT)','Dietitian Consultation'],featured:false},
+  {name:'Senior Citizen Checkup',badge:'60+ Care',header:'',price:'₹2,999',desc:'Specialised screening for adults aged 60 and above.',benefits:['All Preventive tests +','Bone Density (DEXA Scan)','Opthalmology Screening','Audiometry','Cognitive Assessment','Cancer Markers (CA 19-9, CEA)','Geriatrician Consultation','Physiotherapy Assessment'],featured:false},
+  {name:"Women's Wellness Package",badge:"For Her",header:'alt',price:'₹2,499',desc:'Complete reproductive and general wellness for women.',benefits:['Pap Smear & Pelvic Exam','Mammography','Thyroid & Hormonal Panel','Bone Density Screen','PCOD Screening','Gynaecologist Consultation','Nutritionist Session','Breast Self-Exam Coaching'],featured:false},
+  {name:"Men's Wellness Package",badge:"For Him",header:'',price:'₹2,499',desc:'Targeted health screening focused on men\'s health risks.',benefits:['PSA (Prostate Marker)','Testosterone Level','Lipid & Cardiac Risk Profile','Diabetes Screening','Liver & Kidney Panel','Urologist Consultation','Stress ECG','Nutrition Assessment'],featured:false},
+];
+
+const WELLNESS=[
+  {name:'Weight Management Program',icon:'fas fa-weight',desc:'A 12-week science-backed program combining dietary counselling, exercise physiology and behavioral coaching to achieve sustainable weight goals.',bullets:['Personalised meal plans by registered dietitians','Supervised fitness sessions (3x/week)','Metabolic rate testing & monitoring','Weekly progress tracking & adjustments'],alt:false},
+  {name:'Diabetes Management',icon:'fas fa-syringe',desc:'Comprehensive Type 1 & 2 diabetes management integrating endocrinology, nutrition science and lifestyle coaching to achieve optimal glycaemic control.',bullets:['HbA1c monitoring & targets','Continuous Glucose Monitoring (CGM) guidance','Carbohydrate counting & insulin management','Foot care & complication prevention'],alt:true},
+  {name:'Heart Health Program',icon:'fas fa-heart',desc:'A cardiac risk reduction program for individuals with hypertension, high cholesterol or a family history of heart disease — before a crisis occurs.',bullets:['Cardiac risk stratification','Mediterranean diet & sodium counselling','Supervised cardiac rehabilitation','Stress management & mindfulness'],alt:false},
+  {name:'Nutrition Counseling',icon:'fas fa-apple-alt',desc:'One-on-one and group nutritional guidance delivered by our team of registered dietitians and nutritionists across all life stages.',bullets:['Gut health & microbiome nutrition','Sports & performance nutrition','Pre/post-natal diet planning','Allergy & intolerance meal planning'],alt:true},
+  {name:'Mental Wellness Program',icon:'fas fa-brain',desc:'Evidence-based mental health support through CBT, mindfulness-based stress reduction and one-on-one psychotherapy sessions.',bullets:['Anxiety & depression management','Work-life balance coaching','Sleep hygiene programme','Group support & community sessions'],alt:false},
+];
+
+// ── RENDER ────────────────────────────────────────────
+function renderSpecialties(){
+  const el=document.getElementById('specialties-list');
+  el.innerHTML=SPECIALTIES.map(s=>`
+    <div style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:32px;margin-bottom:24px;display:grid;grid-template-columns:1fr 1.5fr;gap:32px;align-items:start;border-left:4px solid var(--blue)">
+      <div>
+        <div style="width:60px;height:60px;border-radius:14px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:16px"><i class="${s.icon}"></i></div>
+        <h3 style="font-weight:800;color:var(--navy);font-size:1.3rem;margin-bottom:10px">${s.name}</h3>
+        <p style="font-size:.85rem;color:var(--gray);line-height:1.7;margin-bottom:20px">${s.desc}</p>
+        <button class="btn btn-primary" onclick="navigate('appointment')"><i class="fas fa-calendar-check"></i>Book Consultation</button>
+      </div>
+      <div>
+        <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:14px">Key Treatments</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          ${s.treatments.map(t=>`<div style="display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text);background:var(--off);padding:10px 12px;border-radius:8px"><i class="fas fa-check-circle" style="color:var(--blue);flex-shrink:0"></i>${t}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderDoctors(filter='all'){
+  const el=document.getElementById('doctors-grid');
+  const list=filter==='all'?DOCTORS:DOCTORS.filter(d=>d.spec===filter);
+  el.innerHTML=list.map(d=>`
+    <div class="doctor-card">
+      <div class="doctor-avatar"><span style="font-size:4rem">${d.icon}</span></div>
+      <div class="doctor-info">
+        <h4>${d.name}</h4>
+        <div class="spec">${d.spec}</div>
+        <div class="qual"><i class="fas fa-graduation-cap" style="color:var(--gray);margin-right:4px"></i>${d.qual}</div>
+        <div class="exp"><i class="fas fa-briefcase"></i>${d.exp} Experience</div>
+        <button class="btn btn-primary" onclick="navigate('appointment')">Book Appointment</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterDoctors(f){renderDoctors(f)}
+
+function renderPackages(){
+  const el=document.getElementById('packages-grid');
+  el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">`+
+  PACKAGES.map(p=>`
+    <div class="package-card${p.featured?' featured':''}">
+      <div class="package-header ${p.header}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+          </div>
+          <span style="background:rgba(255,255,255,.2);border-radius:999px;padding:3px 10px;font-size:.65rem;font-weight:700;white-space:nowrap;margin-left:8px">${p.badge}</span>
+        </div>
+        <div class="package-price"><span class="amount">${p.price}</span><span class="period">/ person</span></div>
+      </div>
+      <div class="package-body">
+        <ul class="package-benefits">${p.benefits.map(b=>`<li><i class="fas fa-check-circle"></i>${b}</li>`).join('')}</ul>
+        <button class="btn btn-primary" onclick="navigate('appointment')"><i class="fas fa-clipboard-check"></i>Enroll Now</button>
+      </div>
+    </div>
+  `).join('')+'</div>';
+}
+
+function renderWellness(){
+  const el=document.getElementById('wellness-grid');
+  el.innerHTML=WELLNESS.map(w=>`
+    <div class="wellness-card${w.alt?' alt':''}">
+      <div style="width:48px;height:48px;border-radius:10px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:14px"><i class="${w.icon}"></i></div>
+      <h4>${w.name}</h4>
+      <p>${w.desc}</p>
+      <ul class="wellness-bullets">${w.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+      <button class="btn btn-primary" style="margin-top:18px" onclick="navigate('appointment')"><i class="fas fa-arrow-right"></i>Learn More</button>
+    </div>
+  `).join('');
+}
+
+// ── ROUTING ───────────────────────────────────────────
+let checkupPopupTimer=null;
+let wellnessPopupShown=false;
+let partialDetectTimer=null;
+
+function navigate(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const el=document.getElementById('page-'+page);
+  if(el){el.classList.add('active')}
+  const link=document.querySelector(`.nav-link[onclick*="'${page}'"]`);
+  if(link)link.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  // Clear previous popup timers
+  clearTimeout(checkupPopupTimer);
+
+  if(page==='checkup'){
+    // RESUL Use Case 1 – popup after 20s
+    checkupPopupTimer=setTimeout(()=>showPopup('checkupPopup'),20000);
+    renderPackages();
+  }
+  if(page==='wellness'){
+    // RESUL Use Case 2 – popup immediately
+    setTimeout(()=>{if(!wellnessPopupShown){showPopup('wellnessPopup');wellnessPopupShown=true}},1200);
+    renderWellness();
+  }
+  if(page==='specialties') renderSpecialties();
+  if(page==='doctors') renderDoctors();
+  if(page==='appointment') setupApptForm();
+}
+
+// ── POPUPS ────────────────────────────────────────────
+function showPopup(id){document.getElementById(id).classList.add('show')}
+function closePopup(id){document.getElementById(id).classList.remove('show')}
+
+function submitPopup(popupId,statusId){
+  const s=document.getElementById(statusId);
+  s.className='form-status status-loading';s.style.display='flex';
+  s.innerHTML='<i class="fas fa-spinner fa-pulse"></i><span>Submitting…</span>';
+  setTimeout(()=>{
+    s.className='form-status status-success';
+    s.innerHTML='<i class="fas fa-check-circle"></i><span>Thank you! Our team will call you within 2 hours.</span>';
+    setTimeout(()=>closePopup(popupId),3000);
+  },1500);
+}
+
+// ── APPOINTMENT FORM ──────────────────────────────────
+const deptDoctors={
+  Cardiology:['Dr. Arjun Mehta','Dr. Sunita Rao'],
+  Neurology:['Dr. Vikram Nair','Dr. Preethi Sharma'],
+  Orthopedics:['Dr. Ramesh Iyer','Dr. Kavitha Menon'],
+  Oncology:['Dr. Suresh Patel'],
+  Pediatrics:['Dr. Ananya Das','Dr. Meera Pillai'],
+  Dermatology:['Dr. Deepa Krishnan'],
+  Gastroenterology:['Dr. Krishnamurthy V.'],
+  'General Medicine':['Dr. Harish Bhat'],
+};
+
+function updateDoctors(){
+  const dept=document.getElementById('apptDept').value;
+  const sel=document.getElementById('apptDoctor');
+  sel.innerHTML='<option value="">Any Available Doctor</option>';
+  if(deptDoctors[dept])deptDoctors[dept].forEach(d=>{const o=document.createElement('option');o.textContent=d;sel.appendChild(o)});
+}
+
+function setupApptForm(){
+  // Set min date to today
+  const d=document.getElementById('apptDate');
+  if(d){const today=new Date();d.min=today.toISOString().split('T')[0]}
+  // Partial form detection
+  const form=document.getElementById('apptForm');
+  let dirty=false;
+  form.querySelectorAll('input,select,textarea').forEach(el=>{
+    el.addEventListener('change',()=>{
+      if(!dirty){
+        dirty=true;
+        clearTimeout(partialDetectTimer);
+        partialDetectTimer=setTimeout(()=>{
+          if(dirty&&!document.getElementById('apptStatus').style.display==='flex')
+            document.getElementById('partialBanner').style.display='flex';
+        },30000);
+      }
+    });
+  });
+
+  const form2=document.getElementById('apptForm');
+  form2.onsubmit=null;
+  form2.addEventListener('submit',submitAppt,{once:false});
+}
+
+function submitAppt(e){
+  e.preventDefault();
+  const btn=document.getElementById('apptSubmitBtn');
+  const st=document.getElementById('apptStatus');
+  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-pulse"></i> Booking…';
+  st.className='form-status status-loading';st.style.display='flex';
+  st.innerHTML='<i class="fas fa-spinner fa-pulse"></i><span>Confirming your appointment…</span>';
+  setTimeout(()=>{
+    document.getElementById('partialBanner').style.display='none';
+    st.className='form-status status-success';
+    st.innerHTML='<i class="fas fa-check-circle"></i><span>✅ Appointment confirmed! You will receive a confirmation SMS & email within 15 minutes. Lead created in RESUL CRM.</span>';
+    btn.disabled=false;btn.innerHTML='<i class="fas fa-calendar-check"></i>Confirm Appointment';
+  },2000);
+}
+
+function submitContact(e){
+  e.preventDefault&&e.preventDefault();
+  const st=document.getElementById('contactStatus');
+  st.className='form-status status-loading';st.style.display='flex';
+  st.innerHTML='<i class="fas fa-spinner fa-pulse"></i><span>Sending…</span>';
+  setTimeout(()=>{
+    st.className='form-status status-success';
+    st.innerHTML='<i class="fas fa-check-circle"></i><span>Message received! We\'ll respond within 24 hours.</span>';
+  },1500);
+  return false;
+}
+
+// ── FAQ ───────────────────────────────────────────────
+function toggleFaq(el){
+  const item=el.parentElement;
+  item.classList.toggle('open');
+}
+
+// ── MOBILE NAV ────────────────────────────────────────
+function toggleMobile(){
+  const n=document.getElementById('mobileNav');
+  n.style.display=n.style.display==='flex'?'none':'flex';
+}
+
+// ── INIT ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  navigate('home');
+  renderSpecialties();
+  renderDoctors();
+  renderPackages();
+  renderWellness();
+  setupApptForm();
+});
+</script>
+</body>
+</html>
